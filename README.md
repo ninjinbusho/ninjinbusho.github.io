@@ -1,0 +1,1 @@
+# ninjinbusho.github.io
