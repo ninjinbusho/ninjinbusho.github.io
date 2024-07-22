@@ -1,0 +1,14 @@
+header {
+    height: 40px;
+    background-color: #00c8ff75;
+}
+
+#headertitle {
+    font-size: 30px;
+    color: orange;
+}
+
+#main {
+    height: 500px;
+    background-color: #b4b4b4;
+}
