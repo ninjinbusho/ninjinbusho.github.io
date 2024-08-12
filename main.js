@@ -1,54 +1,24 @@
-const canvas = document.getElementById('myCanvas');
-const ctx = canvas.getContext('2d');
-const image = new Image();
-const MAX_SCALE = 5;
-const SCALE_STEP = 0.2;
-let imageScale = 1;
+function init() {
+    var map = L.map('map');       // (1)地図を表示する場所
+    map.setView([35.658825, 139.702904], 5); // (2)地図の中心座標とズームレベル
+    // (3)表示する地図のURLや著作権表記
+     L.tileLayer('https://cyberjapandata.gsi.go.jp/xyz/std/{z}/{x}/{y}.png', {
+           attribution: "<a href='https://maps.gsi.go.jp/development/ichiran.html' target='_blank'>地理院タイル</a>"
+       }).addTo(map);
+     }
 
-canvas.addEventListener('mousewheel', canvasZoom);
-canvas.addEventListener('mouseover', disableScroll);
-canvas.addEventListener('mouseout', enableScroll);
-
-function draw() {
-    image.addEventListener("load", function(){
-        // 画像のスケーリング表示
-        ctx.save();
-        ctx.scale(imageScale, imageScale);
-        ctx.drawImage(image, 0, 0, canvas.width, canvas.height);
-        ctx.restore();
-
-        // 倍率の描画
-        ctx.font = '30px "arial black"';
-        ctx.fillStyle = 'white';
-        ctx.fillText('x' + imageScale.toFixed(1), 390, 300);
-        ctx.lineWidth = 2;
-        ctx.strokeText('x' + imageScale.toFixed(1), 390, 300);
-
-        // 枠の描画
-        ctx.lineWidth = 3;
-        ctx.strokeRect(0, 0, canvas.width, canvas.height);
-    });
-    image.src = "https://kano.arkoak.com/images/harinezumi.jpg";
+const canvas = document.getElementById("myCanvas");        
+    let imagePath = "image.jpg";
+    draw(canvas,imagePath);
+    function draw(canvas,imagePath){
+        console.log("draw");
+        const image = new Image();
+        image.addEventListener("load",function (){
+            canvas.width = 300;
+            canvas.height = 300;
+            const ctx = canvas.getContext("2d");
+            ctx.drawImage(image, 0, 0);
+            console.log("load!");
+        });
+    image.src = imagePath;
 }
-
-function canvasZoom(e) {
-    if (e.wheelDelta > 0) {
-        imageScale += SCALE_STEP;
-        if (imageScale > MAX_SCALE) {
-            imageScale = MAX_SCALE;
-        }
-    } else {
-        imageScale -= SCALE_STEP;
-        if (imageScale <= 1) {
-            imageScale = 1;
-        }
-    }
-    draw();
-}
-
-// Cnavas上ではブラウザのスクロールを無効に
-function disableScroll() {document.addEventListener("mousewheel", scrollControl, { passive: false });}
-function enableScroll() {document.removeEventListener("mousewheel", scrollControl, { passive: false });}
-function scrollControl(e) {e.preventDefault();}
-
-draw();
