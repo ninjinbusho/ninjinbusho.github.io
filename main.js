@@ -5,7 +5,7 @@ function init() {
     //var bounds = [[0,0], [4896,3264]];
     //var image = L.imageOverlay('image.jpg', bounds).addTo(map);
     //map.fitBounds(bounds);
-    map.setView(L.latLng(-1024/2, 1024/2), 0)
+    map.setView(L.latLng(-256/2, 256/2), 0)
     L.tileLayer("tiles/{z}_{x}_{y}.png").addTo(map);
 }
 
