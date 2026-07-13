@@ -1,0 +1,40 @@
+---
+// レイアウトコンポーネント (BlogPostLayout.astro)
+// Markdownファイルのフロントマターからデータを受け取る
+const { frontmatter } = Astro.props;
+import '../assets/styles.css'
+---
+<html lang="ja">
+<head>
+    <meta charset="utf-8" /> {/* ← 重要: 文字化けを防ぐために必ず記述 */}
+    <meta name="viewport" content="width=device-width" />
+    <title>{frontmatter.title}</title> {/* Markdownのタイトルを表示 */}
+    <!-- <link rel="stylesheet" href="src\assets\styles.css" /> -->
+</head>
+<body>
+    <!-- Header Template -->
+    <header class="site-header">
+      <a class="brand" href="#">ninjinbushoのwebサイト（仮）</a>
+
+      <nav class="site-nav" aria-label="主要ナビゲーション">
+        <a href="">about</a>
+        <a href="">空想地図「皆島」</a>
+        <a href="">その他の作品</a>
+      </nav>
+    </header>
+    <main class="blog-post-main">
+        <h1 class="blog-post-title">{frontmatter.title}</h1> {/* Markdownのタイトルを表示 */}
+        <article>   
+            <slot /> {/* ← ここにMarkdown本文の内容が挿入される */}
+        </article>
+    </main>
+    <!-- Footer Template -->
+    <footer class="site-footer">
+      <p>© 2026 ninjinbusho. All rights reserved.</p>
+
+      <nav class="footer-nav" aria-label="フッターナビゲーション">
+        <a href="#">お問い合わせ</a>
+      </nav>
+    </footer>
+</body>
+</html>
